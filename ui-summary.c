@@ -26,7 +26,7 @@ static void print_url(char *base, char *suffix)
 	if (suffix && *suffix)
 		base = fmt("%s/%s", base, suffix);
 
-	/* Chrome messes up SSH urls so use a input field of type=text instead. */
+	/* Chrome messes up SSH urls so use an input field of type=text instead. */
 
 	/*html("<tr><td colspan='4'><a href='");*/
 	/*html_url_path(base);*/
@@ -35,7 +35,7 @@ static void print_url(char *base, char *suffix)
 	/*html("</a></td></tr>\n");*/
 
 	html("<tr><td colspan='4'><input type='text' size='70' value='");
-	html_url_path(base);
+	html_txt(base);
 	html("' />");
 	html("</td></tr>\n");
 }
