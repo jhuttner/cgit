@@ -69,9 +69,18 @@ void cgit_print_summary()
 		cgit_print_log(ctx.qry.head, 0, ctx.cfg.summary_log, NULL,
 			       NULL, NULL, 0, 0);
 	}
-	if (ctx.repo->clone_url)
-		print_urls(expand_macros(ctx.repo->clone_url), NULL);
-	else if (ctx.cfg.clone_prefix)
+	if (ctx.repo->clone_url) {
+		char *full_clone = expand_macros(ctx.repo->clone_url);
+		char *pound = full_clone;
+		while (1) {
+			pound = strchr(pound, '#');
+			if (pound == NULL) break;
+			*pound = ' ';
+			pound++;
+		}
+		print_url(full_clone, NULL);
+		/*print_urls(expand_macros(ctx.repo->clone_url), NULL);*/
+	} else if (ctx.cfg.clone_prefix)
 		print_urls(ctx.cfg.clone_prefix, ctx.repo->url);
 	html("</table>");
 }
